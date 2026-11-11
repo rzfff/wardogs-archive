@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#141714">
+<title>AnHappy</title>
+<style>
+  /* 2026-09-20:常暗主题(手机系统浅色时不再白底)——暗色值直接作为 :root 默认,
+     原 prefers-color-scheme 包装与 [data-theme="dark"] 冗余块已删 */
+  :root {
+    color-scheme: dark;
+    --ground: #141714;
+    --surface: #1B1F1B;
+    --ink: #E9EBE4;
+    --sub: #A2A79B;
+    --faint: #6E736A;
+    --line: #272C26;
+    --accent: #8CBAA0;
+    --accent-soft: #1E2620;
+    --ok: #58B380;
+    --bad: #E08074;
+    --idle: #7B7F77;
+    --mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, "JetBrains Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 48px 20px 40px;
+  }
+
+  /* ---------- 头部 ---------- */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 22px;
+  }
+  .wordmark {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 24px;
+    color: var(--ink);
+  }
+  .wordmark .dot { color: var(--accent); }
+
+  .statusbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 16px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    color: var(--sub);
+  }
+  .statusbar .clock { color: var(--ink); }
+
+  /* ---------- 服务目录 ---------- */
+  .dir-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 34px 2px 10px;
+  }
+  .dir-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--sub);
+  }
+  .dir-title .en {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+    margin-left: 8px;
+  }
+  .dir-count {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--faint);
+  }
+  .dir {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .svc {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 18px;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--line);
+    transition: background 160ms ease;
+  }
+  .svc:last-child, .svc.placeholder { border-bottom: none; }
+  .svc:hover { background: var(--accent-soft); }
+  .svc:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+  .svc .arrow {
+    margin-left: auto;
+    color: var(--faint);
+    font-size: 15px;
+    transition: transform 160ms ease, color 160ms ease;
+  }
+  .svc:hover .arrow { transform: translateX(3px); color: var(--accent); }
+
+  .svc.placeholder {
+    color: var(--faint);
+    background: var(--surface);
+    cursor: default;
+  }
+  .svc.placeholder:hover { background: var(--surface); }
+
+  .led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--idle);
+  }
+  .led.ok { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 18%, transparent); }
+  .led.bad { background: var(--bad); }
+  .led.idle { background: var(--idle); }
+
+  .svc-main { min-width: 0; }
+  .svc-name {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .svc.placeholder .svc-name { color: var(--faint); font-weight: 500; }
+  .svc-name .en {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+    margin-left: 8px;
+  }
+  .svc-desc {
+    font-size: 13px;
+    color: var(--sub);
+    margin-top: 1px;
+  }
+  .svc.placeholder .svc-desc { color: var(--faint); }
+
+  .svc-state {
+    flex: none;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--faint);
+    min-width: 40px;
+    text-align: right;
+  }
+  .svc-state.ok { color: var(--ok); }
+  .svc-state.bad { color: var(--bad); }
+
+  /* ---------- 带背景图的服务卡(wardogs) ---------- */
+  .svc.bg {
+    background-size: cover;
+    background-position: 0 0, 100% 50%;
+    min-height: 80px;
+  }
+  .svc.bg:hover { filter: brightness(1.14); }
+
+  /* ---------- 页脚 ---------- */
+  footer {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--faint);
+  }
+
+  @media (max-width: 420px) {
+    .page { padding-top: 36px; }
+    .wordmark { font-size: 32px; }
+    .svc { padding: 14px; gap: 11px; }
+    .svc .arrow { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .svc, .svc .arrow { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page" lang="zh-CN">
+
+  <div class="eyebrow">Index of /</div>
+
+  <h1 class="wordmark">anhappy<span class="dot">.</span>com</h1>
+
+  <div class="statusbar">
+    <span id="greeting">你好</span>
+    <span class="clock" id="clock">--:--:--</span>
+  </div>
+
+  <div class="dir-head">
+    <span class="dir-title">公开服务<span class="en">PUBLIC</span></span>
+    <span class="dir-count">7 services · 无需登录</span>
+  </div>
+
+  <nav class="dir">
+    <a class="svc" href="/blog/" id="svc-blog">
+      <span class="led idle" data-led="blog"></span>
+      <span class="svc-main">
+        <span class="svc-name">博客<span class="en">BLOG</span></span>
+        <span class="svc-desc" style="display:block">Hexo · 文章与随笔</span>
+      </span>
+      <span class="svc-state" data-state="blog">…</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="svc" href="/share/" id="svc-share">
+      <span class="led idle" data-led="share"></span>
+      <span class="svc-main">
+        <span class="svc-name">书库<span class="en">LIBRARY</span></span>
+        <span class="svc-desc" style="display:block">nginx · 公开浏览无需登录</span>
+      </span>
+      <span class="svc-state" data-state="share">…</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="svc bg" href="/wardogs/" id="svc-wardogs" style="background-image:linear-gradient(90deg, color-mix(in srgb, var(--surface) 90%, transparent) 0%, color-mix(in srgb, var(--surface) 68%, transparent) 34%, color-mix(in srgb, var(--surface) 22%, transparent) 58%, rgba(8,10,8,0) 72%), url('/assets/wardogs-card.webp?v=2')">
+      <span class="led idle" data-led="wardogs"></span>
+      <span class="svc-main">
+        <span class="svc-name">炮兵计算器<span class="en">WARDOGS</span></span>
+        <span class="svc-desc" style="display:block">WARDOGS · 射表计算与战术地图</span>
+      </span>
+      <span class="svc-state" data-state="wardogs">…</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="svc bg" href="/wtstats/" id="svc-wtstats" style="background-image:linear-gradient(90deg, color-mix(in srgb, var(--surface) 94%, transparent) 0%, color-mix(in srgb, var(--surface) 78%, transparent) 32%, color-mix(in srgb, var(--surface) 26%, transparent) 62%, rgba(8,10,8,0) 80%), url('/assets/wtstats-promo.webp?v=3')">
+      <span class="led idle" data-led="wtstats"></span>
+      <span class="svc-main">
+        <span class="svc-name">载具统计<span class="en">WTSTATS</span></span>
+        <span class="svc-desc" style="display:block">War Thunder · 胜率热力图与趋势</span>
+      </span>
+      <span class="svc-state" data-state="wtstats">…</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="svc bg" href="/wtapi/" id="svc-wtapi" style="background-image:linear-gradient(90deg, color-mix(in srgb, var(--surface) 94%, transparent) 0%, color-mix(in srgb, var(--surface) 78%, transparent) 32%, color-mix(in srgb, var(--surface) 26%, transparent) 62%, rgba(8,10,8,0) 80%), url('/assets/wtapi-promo.webp?v=3')">
+      <span class="led idle" data-led="wtapi"></span>
+      <span class="svc-main">
+        <span class="svc-name">载具数据库<span class="en">WTAPI</span></span>
+        <span class="svc-desc" style="display:block">War Thunder · 载具数据统计面板与 API</span>
+      </span>
+      <span class="svc-state" data-state="wtapi">…</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="svc bg" href="/wtrp/" id="svc-wtrp" style="background-image:linear-gradient(90deg, color-mix(in srgb, var(--surface) 94%, transparent) 0%, color-mix(in srgb, var(--surface) 78%, transparent) 32%, color-mix(in srgb, var(--surface) 26%, transparent) 62%, rgba(8,10,8,0) 80%), url('/assets/wtrp-promo.webp?v=3')">
+      <span class="led idle" data-led="wtrp"></span>
+      <span class="svc-main">
+        <span class="svc-name">研发点计算器<span class="en">WTRP</span></span>
+        <span class="svc-desc" style="display:block">War Thunder · 科技树研发路径与开销</span>
+      </span>
+      <span class="svc-state" data-state="wtrp">…</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="svc bg" href="/wtevents/" id="svc-wtevents" style="background-image:linear-gradient(90deg, color-mix(in srgb, var(--surface) 94%, transparent) 0%, color-mix(in srgb, var(--surface) 78%, transparent) 32%, color-mix(in srgb, var(--surface) 26%, transparent) 62%, rgba(8,10,8,0) 80%), url('/assets/wtevents-promo.webp?v=6')">
+      <span class="led idle" data-led="wtevents"></span>
+      <span class="svc-main">
+        <span class="svc-name">活动总览<span class="en">WTEVENTS</span></span>
+        <span class="svc-desc" style="display:block">War Thunder · 历年活动与促销档案</span>
+      </span>
+      <span class="svc-state" data-state="wtevents">…</span>
+      <span class="arrow">→</span>
+    </a>
+  </nav>
+
+  <div class="dir-head">
+    <span class="dir-title">内部服务<span class="en">LOGIN</span></span>
+    <span class="dir-count">2 services · 需账号登录</span>
+  </div>
+
+  <nav class="dir">
+    <a class="svc" href="/fbq/" id="svc-fbq">
+      <span class="led idle" data-led="fbq"></span>
+      <span class="svc-main">
+        <span class="svc-name">文件管理<span class="en">FILEBROWSER</span></span>
+        <span class="svc-desc" style="display:block">FileBrowser Quantum · 文件管理</span>
+      </span>
+      <span class="svc-state" data-state="fbq">…</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="svc" href="/stats/" id="svc-stats">
+      <span class="led idle" data-led="stats"></span>
+      <span class="svc-main">
+        <span class="svc-name">访问统计<span class="en">STATS</span></span>
+        <span class="svc-desc" style="display:block">goaccess · 每日访问报告</span>
+      </span>
+      <span class="svc-state" data-state="stats">…</span>
+      <span class="arrow">→</span>
+    </a>
+  </nav>
+
+  <footer>
+    <span>© 2022–2026 anhappy</span>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- 时钟与问候 ----------
+  var clockEl = document.getElementById('clock');
+  var greetEl = document.getElementById('greeting');
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  var WEEK = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  function tick() {
+    var d = new Date();
+    clockEl.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    var h = d.getHours();
+    var g = h < 5 ? '夜深了' : h < 9 ? '早上好' : h < 12 ? '上午好' : h < 14 ? '中午好' : h < 18 ? '下午好' : h < 23 ? '晚上好' : '夜深了';
+    var w = WEEK[d.getDay()];
+    var y = d.getFullYear(), m = d.getMonth() + 1, day = d.getDate();
+    greetEl.textContent = g + ' · ' + y + '年' + m + '月' + day + '日 ' + w;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---------- 服务状态探测 ----------
+  var SERVICES = [
+    { key: 'blog',  path: '/blog/'  },
+    { key: 'share', path: '/share/' },
+    { key: 'stats', path: '/stats/' },
+    { key: 'wardogs', path: '/wardogs/' },
+    { key: 'wtstats', path: '/wtstats/' },
+    { key: 'wtapi', path: '/wtapi/' },
+    { key: 'wtrp', path: '/wtrp/' },
+    { key: 'wtevents', path: '/wtevents/' },
+    { key: 'fbq', path: '/fbq/health' }
+  ];
+  function setState(key, state) {
+    var led = document.querySelector('[data-led="' + key + '"]');
+    var txt = document.querySelector('[data-state="' + key + '"]');
+    if (!led || !txt) return;
+    led.className = 'led ' + state;
+    txt.className = 'svc-state ' + state;
+    txt.textContent = state === 'ok' ? '在线' : state === 'bad' ? '离线' : '…';
+  }
+  function probe(svc) {
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 3500) : null;
+    fetch(svc.path, { method: 'HEAD', cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { if (timer) clearTimeout(timer); setState(svc.key, r.status < 500 ? 'ok' : 'bad'); })
+      .catch(function () { if (timer) clearTimeout(timer); setState(svc.key, 'bad'); });
+  }
+  function probeAll() { SERVICES.forEach(probe); }
+  probeAll();
+  setInterval(probeAll, 30000);
+</script>
+</body>
+</html>

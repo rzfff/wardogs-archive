@@ -1,0 +1,171 @@
+==== 2026-09-17 01:09:33 更新检查 ====
+无更新(e8d1ee9ceb07fe9ec4923b7b55e836f8b3bb3e05)
+==== 2026-09-21 04:23:01 更新检查 ====
+发现更新: e8d1ee9ceb07fe9ec4923b7b55e836f8b3bb3e05 → 6a9fcd9afcea4254df59dfba4df5cc2627a92112
+6a9fcd9 feat: hide platform mil adjustment
+
+> build
+> node scripts/build-pages.mjs && node scripts/sync-locales.mjs && node scripts/version-assets.mjs
+
+Built desktop + mobile site into /wd/repo/dist
+Mobile entry: /wd/repo/dist/mobile/index.html
+Synchronized 13 locale routes with the shared localization pipeline.
+Versioned 65 HTML files with asset fingerprint 962dbdd66cd6
+Configured production Umami analytics on 65 HTML files
+Umami Early Access release tag: ea-build-962dbdd66cd6
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice
+[1] tiles/terrain URL rewritten: 13 (expect 13)
+[2] collab.enabled=false feedback.enabled=false
+[3] html=65 umami-removed=65 r2-link-removed=52
+[4] removed CNAME
+ERROR: 产物缺 maps/bakurani.json,保留旧版
+==== 2026-09-21 23:36:15 更新检查 ====
+发现更新: 6a9fcd9afcea4254df59dfba4df5cc2627a92112 → c77ca39c688b371bacb76a33c93a0e479b3f5138
+c77ca39 feat: new motd & version bump
+
+> build
+> node scripts/build-pages.mjs && node scripts/sync-locales.mjs && node scripts/version-assets.mjs
+
+Built desktop + mobile site into /wd/repo/dist
+Mobile entry: /wd/repo/dist/mobile/index.html
+Synchronized 13 locale routes with the shared localization pipeline.
+Versioned 65 HTML files with asset fingerprint 1ac7d1dac21b
+Configured production Umami analytics on 65 HTML files
+Umami Early Access release tag: ea-build-1ac7d1dac21b
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice
+[1] tiles/terrain URL rewritten: 13 (expect 13)
+[2] collab.enabled=false feedback.enabled=false
+[3] html=65 umami-removed=65 r2-link-removed=52
+[4] removed CNAME
+校验: R2残留=0 本站前缀=13 umami标签=0
+OK: 已换版到 c77ca39 2026-09-21 11:37:55 +0300
+==== 2026-09-28 04:23:01 更新检查 ====
+发现更新: c77ca39c688b371bacb76a33c93a0e479b3f5138 → f956af7f980a60a565685d07b377264364e4acf7
+f956af7 perf: reduce map tile requests
+
+> build
+> node scripts/build-pages.mjs && node scripts/sync-locales.mjs && node scripts/version-assets.mjs
+
+Built desktop + mobile site into /wd/repo/dist
+Mobile entry: /wd/repo/dist/mobile/index.html
+Synchronized 13 locale routes with the shared localization pipeline.
+Versioned 65 HTML files with asset fingerprint 003e7214f428
+Configured production Umami analytics on 65 HTML files
+Umami Early Access release tag: ea-build-003e7214f428
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.1.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.1.0
+npm notice To update run: npm install -g npm@12.1.0
+npm notice
+[1] tiles/terrain URL rewritten: 13 (expect 13)
+[2] collab.enabled=false feedback.enabled=false
+[3] html=65 umami-removed=65 r2-link-removed=52
+[4] removed CNAME
+校验: R2残留=0 本站前缀=13 umami标签=0
+OK: 已换版到 f956af7 2026-09-27 23:13:08 +0300
+==== 2026-10-05 04:23:01 更新检查 ====
+发现更新: f956af7f980a60a565685d07b377264364e4acf7 → f43183c0747afa3dc33ec9af93a153a53766bf7f
+f43183c feat: map loading recovery
+
+> build
+> node scripts/build-pages.mjs && node scripts/sync-locales.mjs && node scripts/version-assets.mjs
+
+Built desktop + mobile site into /wd/repo/dist
+Mobile entry: /wd/repo/dist/mobile/index.html
+Synchronized 13 locale routes with the shared localization pipeline.
+Versioned 65 HTML files with asset fingerprint 3ef51b3b639e
+Configured production Umami analytics on 65 HTML files
+Umami Early Access release tag: ea-build-3ef51b3b639e
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+[1] tiles/terrain URL rewritten: 13 (expect 13)
+[2] collab.enabled=false feedback.enabled=false
+[3] html=65 umami-removed=65 r2-link-removed=52
+[4] removed CNAME
+校验: R2残留=0 本站前缀=13 umami标签=0
+OK: 已换版到 f43183c 2026-10-04 22:20:24 +0300
+==== 2026-10-12 04:23:01 更新检查 ====
+发现更新: f43183c0747afa3dc33ec9af93a153a53766bf7f → 87e3cf3579c88499b16dfd1e29ed56c70bc0bc7b
+87e3cf3 docs: add project sponsorship links
+
+> build
+> node scripts/build-pages.mjs && node scripts/sync-locales.mjs && node scripts/version-assets.mjs
+
+Built desktop + mobile site into /wd/repo/dist
+Mobile entry: /wd/repo/dist/mobile/index.html
+Synchronized 13 locale routes with the shared localization pipeline.
+Versioned 65 HTML files with asset fingerprint 3d915c1db18f
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+[1] tiles/terrain URL rewritten: 13 (expect 13)
+[2] collab.enabled=false feedback.enabled=false
+[3] html=65 umami-removed=0 r2-link-removed=52
+[4] removed CNAME
+校验: R2残留=0 本站前缀=13 umami标签=0
+OK: 已换版到 87e3cf3 2026-10-08 15:35:47 +0300
+==== 2026-10-19 04:23:01 更新检查 ====
+发现更新: 87e3cf3579c88499b16dfd1e29ed56c70bc0bc7b → 1c2697f22a590275ab46147b147d4a20c98f21d3
+1c2697f fix: publish current Bakurani grayscale map
+
+> build
+> node scripts/build-pages.mjs && node scripts/sync-locales.mjs && node scripts/version-assets.mjs
+
+Built desktop + mobile site into /wd/repo/dist
+Mobile entry: /wd/repo/dist/mobile/index.html
+Synchronized 13 locale routes with the shared localization pipeline.
+Versioned 65 HTML files with asset fingerprint 6683152a9814
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+[1] tiles/terrain URL rewritten: 13 (expect 13)
+[2] collab.enabled=false feedback.enabled=false
+[3] html=65 umami-removed=0 r2-link-removed=52
+[4] removed CNAME
+校验: R2残留=0 本站前缀=13 umami标签=0
+OK: 已换版到 1c2697f 2026-10-16 18:38:16 +0300
+==== 2026-10-26 04:23:01 更新检查 ====
+发现更新: 1c2697f22a590275ab46147b147d4a20c98f21d3 → 9a6ff05f187b88feb312bede42cadc7d39172f40
+9a6ff05 fix: marker ci
+
+> build
+> node scripts/build-pages.mjs && node scripts/sync-locales.mjs && node scripts/version-assets.mjs
+
+Built desktop + mobile site into /wd/repo/dist
+Mobile entry: /wd/repo/dist/mobile/index.html
+Synchronized 13 locale routes with the shared localization pipeline.
+Versioned 65 HTML files with asset fingerprint 64d7022d73cf
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice
+[1] tiles/terrain URL rewritten: 13 (expect 13)
+[1b] asset access guard disabled: 2 bundles patched
+[1c] config/app.json assetGateway disabled
+[1c] assetGateway disabled: 2 bundles
+[1d] core/asset-access.js ensureAssetAccess → always true
+[2] collab.enabled=false feedback.enabled=false
+[3] html=65 umami-removed=0 r2-link-removed=52
+[4] removed CNAME
+校验: R2残留=0 本站前缀=13 umami标签=0
+OK: 已换版到 9a6ff05 2026-10-21 19:39:36 +0300
+==== 2026-11-02 04:23:01 更新检查 ====
+无更新(9a6ff05f187b88feb312bede42cadc7d39172f40)
+==== 2026-11-09 04:23:01 更新检查 ====
+无更新(9a6ff05f187b88feb312bede42cadc7d39172f40)

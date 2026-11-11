@@ -1,0 +1,105 @@
+{
+  "features": {
+    "sphPlatformCorrection": {
+      "enabled": true,
+      "highArcCalibration": {
+        "enabled": true,
+        "mapId": "bakurani",
+        "profile": [
+          [780, 0, -15.4, -26.2],
+          [815, 16, -15.4, -26.2],
+          [900, 13, -7.5, -30.4],
+          [1057, 8, -39.0, -29.5],
+          [1266, 2, -40.2, -33.8],
+          [1461.1, 13, -46.0, -26.0],
+          [1650, 0, -46.0, -26.0]
+        ],
+        "fullDeltaZWindowMeters": 5,
+        "fadeDeltaZWindowMeters": 20,
+        "fullYawWindowDegrees": 5,
+        "fadeYawWindowDegrees": 20
+      },
+      "dispersionRadiusMeters": 25
+    }
+  },
+  "assetGateway": {
+    "enabled": true,
+    "mode": "preclearance",
+    "origin": "https://assets.wardogs-artillery.com",
+    "directOrigin": "https://assets-v2.wardogs-artillery.com",
+    "probePath": "/releases/assets-v1/maps/tiles/bakurani/revisions/s2-20261016/zoom_0/0_0.webp",
+    "verificationPath": "/releases/assets-v1/access-check.html",
+    "sessionPath": "/__session",
+    "turnstile": {
+      "enabled": true,
+      "siteKey": "0x4AAAAAAFFbvfOulm2XKPH9",
+      "action": "asset-session"
+    }
+  },
+  "collab": {
+    "enabled": true,
+    "serverUrl": "https://lobby.wardogs-artillery.com",
+    "maxParticipants": 8,
+    "roomLifetimeHours": 6,
+    "maxRoomsPerDay": 250,
+    "maxChangeBatchesPerDay": 20000,
+    "maxChangeBatchesPerRoom": 1000,
+    "batchDelayMs": 300,
+    "allowedOrigins": [
+      "https://wardogs-artillery.com"
+    ],
+    "developmentOrigins": [
+      "http://localhost:8000",
+      "http://127.0.0.1:8000"
+    ],
+    "maxRoomsPerAdmission": 25,
+    "admissionLifetimeMinutes": 30,
+    "maxInvalidMessages": 5,
+    "turnstile": {
+      "enabled": true,
+      "siteKey": "0x4AAAAAAEsqj3RkFZ7z3IfY",
+      "hostname": "wardogs-artillery.com",
+      "action": "create-lobby"
+    }
+  },
+  "feedback": {
+    "enabled": true,
+    "serverUrl": "https://lobby.wardogs-artillery.com"
+  },
+  "mapTools": {
+    "shortcuts": {
+      "ruler": "r",
+      "pencil": "p",
+      "zone": "z",
+      "polygon": "g",
+      "eraser": "e",
+      "marker": "m",
+      "coordinateSearch": "f",
+      "layers": "l",
+      "fireAdjust": "i",
+      "clearTool": "escape",
+      "undo": "ctrl+z",
+      "redo": "ctrl+y",
+      "redoAlt": "ctrl+shift+z"
+    }
+  },
+  "site": {
+    "lastModified": "2026-10-15",
+    "footer": {
+      "disclaimer": "Unofficial community project. Not affiliated with or endorsed by BULKHEAD or the WARDOGS development team.",
+      "productName": "WARDOGS Artillery Calculator",
+      "authorLabel": "by",
+      "authorName": "Apollyon",
+      "authorUrl": "https://discord.com/users/202109460238434304",
+      "sourceCodeUrl": "https://github.com/apollyon-sys/wardogs-calculator",
+      "version": "1.10.5"
+    }
+  },
+  "map": {
+    "camera": {
+      "maxZoom": 100,
+      "mobileMaxZoom": 40,
+      "panSpeed": 800
+    }
+  }
+}

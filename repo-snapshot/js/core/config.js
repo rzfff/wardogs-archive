@@ -1,0 +1,284 @@
+/* =========================
+   APPLICATION CONFIG
+   ========================= */
+
+const DEFAULT_APP_CONFIG = {
+    assetGateway: {
+        enabled: false,
+        mode: 'session-cookie',
+        origin:
+            'https://assets.wardogs-artillery.com',
+        directOrigin:
+            'https://assets-v2.wardogs-artillery.com',
+        sessionPath: '/__session',
+        turnstile: {
+            enabled: true,
+            siteKey: '',
+            action: 'asset-session'
+        }
+    },
+
+    features: {
+        sphPlatformCorrection: {
+            enabled: false,
+            highArcCalibration: {
+                enabled: false,
+                mapId: 'bakurani',
+                profile: [],
+                fullDeltaZWindowMeters: 5,
+                fadeDeltaZWindowMeters: 20,
+                fullYawWindowDegrees: 5,
+                fadeYawWindowDegrees: 20
+            },
+            dispersionRadiusMeters: 0
+        }
+    },
+
+    map: {
+        camera: {
+            maxZoom: 100,
+            mobileMaxZoom: 40,
+            panSpeed: 800
+        }
+    },
+
+    site: {
+        footer: {
+            disclaimer:
+                'Unofficial community project. Not affiliated with or endorsed by BULKHEAD or the WARDOGS development team.',
+            productName:
+                'WARDOGS Artillery Calculator',
+            authorLabel:
+                'by',
+            authorName:
+                'Apollyon',
+            authorUrl:
+                'https://discord.com/users/202109460238434304',
+            sourceCodeUrl:
+                'https://github.com/apollyon-sys/wardogs-calculator',
+            version:
+                '1.10.5'
+        }
+    },
+
+    mapTools: {
+        shortcuts: {
+            ruler: 'r',
+            pencil: 'p',
+            zone: 'z',
+            polygon: 'g',
+            eraser: 'e',
+            marker: 'm',
+            coordinateSearch: 'f',
+            layers: 'l',
+            fireAdjust: 'i',
+            clearTool: 'escape',
+            undo: 'ctrl+z',
+            redo: 'ctrl+y',
+            redoAlt: 'ctrl+shift+z'
+        }
+    }
+};
+
+const APP_CONFIG_LOAD_STATE = { failed: false, pending: null };
+
+function mergeAppConfig(base, override) {
+    return {
+        ...base,
+        ...(override || {}),
+
+        assetGateway: {
+            ...base.assetGateway,
+            ...(override?.assetGateway || {}),
+            turnstile: {
+                ...base.assetGateway.turnstile,
+                ...(override?.assetGateway?.turnstile || {})
+            }
+        },
+
+        map: {
+            ...base.map,
+            ...(override?.map || {}),
+            camera: {
+                ...base.map.camera,
+                ...(override?.map?.camera || {})
+            }
+        },
+
+        site: {
+            ...base.site,
+            ...(override?.site || {}),
+            footer: {
+                ...base.site.footer,
+                ...(override?.site?.footer || {})
+            }
+        },
+
+        mapTools: {
+            ...base.mapTools,
+            ...(override?.mapTools || {}),
+            shortcuts: {
+                ...base.mapTools.shortcuts,
+                ...(override?.mapTools?.shortcuts || {})
+            }
+        },
+
+        features: {
+            ...base.features,
+            ...(override?.features || {}),
+            sphPlatformCorrection: {
+                ...base.features.sphPlatformCorrection,
+                ...(override?.features?.sphPlatformCorrection || {}),
+                highArcCalibration: {
+                    ...base.features.sphPlatformCorrection.highArcCalibration,
+                    ...(override?.features?.sphPlatformCorrection
+                        ?.highArcCalibration || {})
+                }
+            }
+        }
+    };
+}
+
+async function loadAppConfig() {
+    if (APP_CONFIG_LOAD_STATE.pending) return APP_CONFIG_LOAD_STATE.pending;
+    APP_CONFIG_LOAD_STATE.pending = (async () => {
+        try {
+            const loaded = await fetchJSON('config/app.json');
+            if (!loaded || typeof loaded !== 'object' || Array.isArray(loaded) ||
+                typeof loaded.assetGateway?.enabled !== 'boolean') {
+                throw new Error('app-config-invalid');
+            }
+            APP_CONFIG = mergeAppConfig(DEFAULT_APP_CONFIG, loaded);
+            APP_CONFIG_LOAD_STATE.failed = false;
+            return true;
+        } catch (error) {
+            // The production bundle carries the configuration from the same
+            // build. A failed JSON request must not disable asset admission or
+            // silently discard the deployed ballistics and lobby settings.
+            const embedded = typeof BUILT_APP_CONFIG === 'object' && BUILT_APP_CONFIG;
+            APP_CONFIG = mergeAppConfig(DEFAULT_APP_CONFIG, embedded || {});
+            APP_CONFIG_LOAD_STATE.failed = !embedded;
+            console.warn('Failed to load config/app.json; using build configuration when available.', error);
+            if (typeof trackAnalytics === 'function') {
+                try { trackAnalytics('app-config-failed', { recovery: embedded ? 'embedded' : 'pending' }); } catch {}
+            }
+            return Boolean(embedded);
+        }
+    })();
+    try {
+        return await APP_CONFIG_LOAD_STATE.pending;
+    } finally {
+        APP_CONFIG_LOAD_STATE.pending = null;
+    }
+}
+
+function getMapToolShortcut(action) {
+    return String(
+        APP_CONFIG
+            ?.mapTools
+            ?.shortcuts
+            ?.[action] || ''
+    )
+        .trim()
+        .toLowerCase();
+}
+
+function isSphPlatformCorrectionEnabled() {
+    return (
+        APP_CONFIG
+            ?.features
+            ?.sphPlatformCorrection
+            ?.enabled === true
+    );
+}
+
+function normalizeConfiguredHttpUrl(
+    value,
+    {
+        allowLocalhost = false,
+        allowSearchAndHash = true
+    } = {}
+) {
+    try {
+        const url = new URL(
+            String(value || '').trim(),
+            document.baseURI
+        );
+
+        const localHttp =
+            allowLocalhost &&
+            url.protocol === 'http:' &&
+            (
+                url.hostname === 'localhost' ||
+                url.hostname === '127.0.0.1' ||
+                url.hostname === '[::1]'
+            );
+
+        if (url.protocol !== 'https:' && !localHttp) {
+            return null;
+        }
+
+        if (url.username || url.password) {
+            return null;
+        }
+
+        if (
+            !allowSearchAndHash &&
+            (url.search || url.hash)
+        ) {
+            return null;
+        }
+
+        return url.href;
+    } catch {
+        return null;
+    }
+}
+
+function getCameraPanSpeed() {
+    const configured =
+        Number(
+            APP_CONFIG
+                ?.map
+                ?.camera
+                ?.panSpeed
+        );
+
+    return (
+        Number.isFinite(configured) &&
+        configured > 0
+            ? configured
+            : DEFAULT_APP_CONFIG.map.camera.panSpeed
+    );
+}
+
+function getMaxCameraZoom() {
+    const mobile =
+        document.body
+            ?.classList
+            .contains('mobile-app') === true;
+
+    const camera =
+        APP_CONFIG
+            ?.map
+            ?.camera;
+
+    const configured =
+        Number(
+            mobile
+                ? camera?.mobileMaxZoom
+                : camera?.maxZoom
+        );
+
+    const fallback =
+        mobile
+            ? DEFAULT_APP_CONFIG.map.camera.mobileMaxZoom
+            : DEFAULT_APP_CONFIG.map.camera.maxZoom;
+
+    return (
+        Number.isFinite(configured) &&
+        configured > 0
+            ? configured
+            : fallback
+    );
+}

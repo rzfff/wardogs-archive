@@ -1,0 +1,287 @@
+{
+  "markerIcons": {
+    "fob": {
+      "path": "assets/map-markers/fob.webp",
+      "labelKey": "markerLabelFob",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "assault": {
+      "path": "assets/map-markers/assault.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "driver": {
+      "path": "assets/map-markers/driver.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "medic": {
+      "path": "assets/map-markers/medic.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "pilot": {
+      "path": "assets/map-markers/pilot.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "recon": {
+      "path": "assets/map-markers/recon.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "support": {
+      "path": "assets/map-markers/support.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "tower": {
+      "path": "assets/map-markers/tower-map.png",
+      "width": 42,
+      "height": 42,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": false
+    },
+    "lonestar": {
+      "path": "assets/map-markers/lonestar.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "manticore": {
+      "path": "assets/map-markers/manticore.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "valkyra": {
+      "path": "assets/map-markers/valkyra.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "wardogs": {
+      "path": "assets/map-markers/wardogs.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "bulkhead": {
+      "path": "assets/map-markers/bulkhead.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "garage_vendor": {
+      "path": "assets/map-markers/garage_vendor.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": false
+    },
+    "spawn_board": {
+      "path": "assets/map-markers/spawn_board.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": false
+    },
+    "weapons_vendor": {
+      "path": "assets/map-markers/weapons_vendor.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": false
+    },
+    "like": {
+      "path": "assets/map-markers/like.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "warning": {
+      "path": "assets/map-markers/warning.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "hill_warning": {
+      "path": "assets/map-markers/hill_warning.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "lasthit": {
+      "path": "assets/map-markers/lasthit.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "spotted": {
+      "path": "assets/map-markers/spotted.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "quad": {
+      "path": "assets/map-markers/quad.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "kodiak": {
+      "path": "assets/map-markers/kodiak.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "buggy": {
+      "path": "assets/map-markers/buggy.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "wolf": {
+      "path": "assets/map-markers/wolf.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "humvee": {
+      "path": "assets/map-markers/humvee.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "ural": {
+      "path": "assets/map-markers/ural.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "heavy_tank": {
+      "path": "assets/map-markers/heavy_tank.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "artillery": {
+      "path": "assets/map-markers/artillery.webp",
+      "labelKey": "markerLabelArtillery",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true
+    },
+    "littlebird": {
+      "path": "assets/map-markers/littlebird.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "lakota": {
+      "path": "assets/map-markers/lakota.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "havoc": {
+      "path": "assets/map-markers/havoc.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    },
+    "spawn_vehicle": {
+      "path": "assets/map-markers/spawn_vehicle.webp",
+      "width": 32,
+      "height": 32,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "placeable": true,
+      "colorable": true
+    }
+  }
+}

@@ -1,0 +1,31 @@
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 60s;
+    }
+
+    # ===== WARDOGS 火炮计算器(纯静态镜像,2026-09-17)=====
+    location = /wardogs { return 301 /wardogs/; }
+    location = /wardogs/ { return 302 /wardogs/zh-cn/; }
+    location /wardogs/ {
+        alias /opt/services/wardogs/dist/;
+        index index.html;
+        try_files $uri $uri/ =404;
+        # 缓存头继承全局 map(静态 30 天/HTML no-cache);不写 add_header 以继承 server 级安全头
+    }
+
+    # ===== WARDOGS 瓦片:本地自托管(2026-10-20)=====
+    # 作者 CDN 人机验证+禁镜像政策(docs/cdn.md)→反代已移除;瓦片取自历史公开 fork(Crecket,
+    # 2026-08 快照,git 历史含完整金字塔),自托管于本机,符合作者「fork 须自建基础设施」的要求。
+    # /wardogs/r2/<路径> → /opt/services/wardogs/r2-local/<路径>(assets-v1 布局,dist 的 maps 配置直用)
+    location /wardogs/r2/ {
+        alias /opt/services/wardogs/r2-local/;
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=604800" always;
+        add_header X-Content-Type-Options nosniff always;
+    }
+
+    # ===== WT 载具统计站(纯静态镜像,2026-09-17)=====
+    # 前端=上游 web 分支出厂产物(免构建)+3 处补丁(见 dist/SOURCE.md);
+    # 数据=data-current 符号链接 → data/vYYYYmmdd-HHMMSS/,update.sh 每日检查、随上游每 3 天换版
+    location = /wtstats { return 301 /wtstats/; }
